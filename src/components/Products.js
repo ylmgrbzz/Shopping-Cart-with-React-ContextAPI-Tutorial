@@ -13,14 +13,14 @@ const Products = props => {
                 <span>Kitap Listesi</span>
                 <Link to="/cart">Sepetim</Link>
             </h2>
-            {context.bookList.map(book => (
+            {context.state.bookList.map(book => (
                 <div className="book" key={book.id}>
                     <img src={book.image} alt={book.name} />
                     <div>
                         <h4>{book.name}</h4>
                         <p>Yazar: {book.author}</p>
                         <p>Fiyat: &#8378;{book.price}</p>
-                        <button>Sepete Ekle</button>
+                        <button onClick={() => context.addToCart(book)}  >Sepete Ekle</button>
                     </div>
                 </div>
             ))}

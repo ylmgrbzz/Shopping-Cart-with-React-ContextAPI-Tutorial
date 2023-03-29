@@ -15,8 +15,21 @@ export default function App() {
     bookList: data,
     cart: [],
   });
+
+  const addToCart = (book) =>
+    setState({
+      ...state,
+      cart: state.cart.find((cartItem) => cartItem.id === book.id)
+        ? state.cart.map((cartItem) =>
+          cartItem.id === book.id
+            ? { ...cartItem, count: cartItem.count + 1 }
+            : cartItem
+        )
+        : [...state.cart, { ...book, count: 1 }],
+    });
+
   return (
-    <BooksContext.Provider value={state}>
+    <BooksContext.Provider value={{ state: state, addToCart }}>
       <div className="App">
         <h1>
           Alışveriş Sepeti Yapımı
@@ -24,12 +37,10 @@ export default function App() {
             src="https://avatars3.githubusercontent.com/u/60869810?v=4"
             alt="React Dersleri"
           />{" "}
-          React Dersleri
         </h1>
         <Route exact path="/" component={Products} />
         <Route path="/cart" component={Cardd} />
       </div>
     </BooksContext.Provider>
-
   );
 }
